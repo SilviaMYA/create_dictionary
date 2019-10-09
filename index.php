@@ -28,11 +28,6 @@
             .panel-body{
                 padding: 0 4px;
             }
-
-            .div_content{
-                font-size: smaller;
-            }
-
             .btn{
                 margin: 0 20px;
                 float: right;
@@ -66,7 +61,7 @@
                     <div class="modal-content">
                         <div class="modal-header bg-success">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add new entrance to the vocabulary</h4>
+                            <h4 class="modal-title">Add new entrance to the dictionary</h4>
                         </div>
                         <div class="modal-body">
                             <div id="div_add" class="form-group">
@@ -82,12 +77,9 @@
                                 </textarea>
                             </div>
                             <div class="modal-footer">
-                                <div>
-                                    <button id="btn_add" class="btn btn-success btn-sm" onclick="addEntrance();">Add</button>
-                                    <button id="btn_clear"  class="btn btn-warning btn-sm"  onclick="clearEntrance();">Clear</button>
-                                    <button data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button>                 
-
-                                </div>
+                                <button id="btn_add" class="btn btn-success btn-sm" onclick="addEntrance();">Add</button>
+                                <button id="btn_clear"  class="btn btn-warning btn-sm"  onclick="clearEntrance();">Clear</button>
+                                <button data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button>                 
                             </div>
                         </div>
                     </div>
@@ -99,34 +91,21 @@
 </html>
 
 <script>
-    $(document).ready(function () {
-        showArray();
-    });
 
     var vocabulary = [];
     var text = "";
+    var i = 1;
 
-    /**Clear an show value for each button meaning, button synonyms, button example, ..., */
+    /**
+     * Clear an show value for each button meaning, button synonyms, button example, ...,
+     * @param {type} value, data to insert
+     * @param {type} i, item position
+     * @returns {undefined}
+     */
     function setPanel(value, i) {
         $('#div_content_' + i).empty();
         $('#div_content_' + i).append(value);
-    }
-
-
-    function showArray() {
-        for (var i = 0; i < vocabulary.length; i++) {
-//            console.log(vocabulary[i].word);
-            text = "<div class='col-sm-6 div_entrance'><div class='panel '><div class='panel-heading nav nav-tabs' id='vocab_to_learn'>";
-            text += vocabulary[i].word;
-            text += "<a class='btn btn-xs btn-info' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + vocabulary[i].meaning + "\", \"" + i + "\");'>Meaning</a>";
-            text += "<a class='btn btn-xs btn-warning' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + vocabulary[i].synonyms + "\", \"" + i + "\");'>Synonyms</a>";
-            text += "<a class='btn btn-xs btn-success' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + vocabulary[i].examples + "\", \"" + i + "\");'>Examples</a>";
-            text += "</div>";
-            text += "<div id='div_content_" + i + "'  class='tab-pane fade'> </div>";
-            text += "</div></div></div>";
-            $('.container').append(text);
-        }
-
+        $('#div_content_' + i).addClass("active in");
     }
 
     /**reset the new entrance before insert*/
@@ -137,7 +116,7 @@
         $('#id_synonyms').val('');
     }
 
-    /**Add new entrance to the vocabulary*/
+    /**Add new entrance to the vocabulary using an object with 4 propieties: word, meaning, examples and synonyms*/
     function addEntrance() {
         var word = $('#id_word').val();
         var meaning = $('#id_meaning').val();
@@ -159,12 +138,21 @@
             examples: $('#id_examples').val(),
             synonyms: $('#id_synonyms').val()
         };
-        vocabulary.push(my_entrance);
-                clearEntrance();
 
         $('#myModal').modal('toggle');
-        $('.div_entrance').css("display", "none");
-        showArray();
+
+        text = "<div class='col-sm-6 div_entrance'> <div class='panel'><div class='panel-heading nav nav-tabs'>";
+        text += my_entrance.word;
+        text += "<a class='btn btn-xs btn-info' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.meaning + "\", \"" + i + "\");'>Meaning</a>";
+        text += "<a class='btn btn-xs btn-warning' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.synonyms + "\", \"" + i + "\");'>Synonyms</a>";
+        text += "<a class='btn btn-xs btn-success' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.examples + "\", \"" + i + "\");'>Examples</a>";
+        text += "</div>";
+        text += "<div id='div_content_" + i + "' class='tab-pane fade' style='font-size:small'> </div>";
+        text += "</div></div>";
+        $('.container').append(text);
+
+        clearEntrance();
+        i += 1;
     }
 
 
