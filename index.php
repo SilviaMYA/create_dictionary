@@ -14,7 +14,7 @@
             }
 
             .main_container{
-                margin: 50px;
+                margin-top: 50px;
                 background-color: #e1f3e0;
                 min-height: 400px;
                 border-radius: 48px;
@@ -30,7 +30,7 @@
             }
             .btn{
                 margin: 0 20px;
-                float: right;
+                float: right !important;
             }
             .modal-footer{
                 text-align: center !important;
@@ -40,6 +40,32 @@
                 font-family: fantasy;
                 font-size: xx-large;
                 margin-bottom: 60px;
+            }
+
+            .fade.in {
+                font-size: small;
+                padding: 10px;
+            }
+            .btn_panel{
+                float: right;
+            }
+
+
+            /*small devices (mobiles, 320px and up)*/
+            @media (min-width: 320px) and (max-width: 767px) {
+                .main_container{
+                    margin: 20px;
+                }
+                .btn{
+                    margin: 0 10px;
+                }
+
+                .div_entrance{
+                    padding: 0;
+                }
+                .btn_panel{
+                    float: none;
+                }
             }
         </style>
         <title>Write down vocabulary</title>
@@ -142,12 +168,14 @@
         $('#myModal').modal('toggle');
 
         text = "<div class='col-sm-6 div_entrance'> <div class='panel'><div class='panel-heading nav nav-tabs'>";
-        text += my_entrance.word;
-        text += "<a class='btn btn-xs btn-info' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.meaning + "\", \"" + i + "\");'>Meaning</a>";
-        text += "<a class='btn btn-xs btn-warning' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.synonyms + "\", \"" + i + "\");'>Synonyms</a>";
-        text += "<a class='btn btn-xs btn-success' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.examples + "\", \"" + i + "\");'>Examples</a>";
-        text += "</div>";
-        text += "<div id='div_content_" + i + "' class='tab-pane fade' style='font-size:small'> </div>";
+        text += "<div style='padding: 8px'>" + my_entrance.word + " </div>";
+        text += "<div class='btn_panel'>";
+
+        text += "<button type='button' class='btn btn-xs btn-info' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.meaning + "\", \"" + i + "\");'>Meaning</button>";
+        text += "<button type='button' class='btn btn-xs btn-warning' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.synonyms + "\", \"" + i + "\");'>Synonyms</button>";
+        text += "<button type='button' class='btn btn-xs btn-success' data-toggle='tab' href='#div_content_" + i + "' onclick='javascript:setPanel(\"" + my_entrance.examples + "\", \"" + i + "\");'>Examples</button>";
+        text += "</div></div>";
+        text += "<div id='div_content_" + i + "' class='tab-pane fade'> </div>";
         text += "</div></div>";
         $('.container').append(text);
 
