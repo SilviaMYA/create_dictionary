@@ -59,7 +59,6 @@
                 .btn{
                     margin: 0 10px;
                 }
-
                 .div_entrance{
                     padding: 0;
                 }
@@ -72,7 +71,7 @@
     </head>
     <body>
         <div class="container main_container">
-            <div><h1 class="text-center">Vocab</h1></div>
+            <div><h1 class="text-center">Write down vocabulary/h1></div>
 
             <div class="col-sm-6 text-center " style="margin-bottom: 30px;">
                 <a href="#" title="Add new entrance" data-toggle="modal" data-target="#myModal">
